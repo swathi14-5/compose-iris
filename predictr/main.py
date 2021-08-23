@@ -8,15 +8,15 @@ app = FastAPI(title="predictr", docs_url="/")
 
 # class which is expected in the payload
 class QueryIn(BaseModel):
-    sepal_length: float
-    sepal_width: float
-    petal_length: float
-    petal_width: float
-
+    number: float
+    orbital_period: float
+    mass: float
+    distance: float
+    
 
 # class which is returned in the response
 class QueryOut(BaseModel):
-    flower_class: str
+    method_class: str
 
 
 # Route definitions
@@ -26,12 +26,12 @@ def ping():
     return {"ping": "pong"}
 
 
-@app.post("/predict_flower", response_model=QueryOut, status_code=200)
+@app.post("/predict_planets", response_model=QueryOut, status_code=200)
 # Route to do the prediction using the ML model defined.
 # Payload: QueryIn containing the parameters
 # Response: QueryOut containing the flower_class predicted (200)
-def predict_flower(query_data: QueryIn):
-    output = {"flower_class": predict(query_data)}
+def predict_planets(query_data: QueryIn):
+    output = {"method_class": predict(query_data)}
     return output
 
 
